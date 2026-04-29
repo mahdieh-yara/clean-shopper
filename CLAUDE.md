@@ -35,3 +35,4 @@ Single-user app. No authentication in V1. Local state plus Supabase for data per
 - Project context: See /docs/project-context.md -- full project intake and design decisions
 - Project context skill: See /.claude/skills/project-context/SKILL.md -- generates structured context documents from project input
 - Prompt optimizer skill: See /.claude/skills/prompt-optimizer/SKILL.md -- Use /prompt-optimizer to evaluate and refine instructions before sending them
+- Design system generator skill: See /.claude/skills/design-system-generator/SKILL.md -- Use /design-system-generator to produce a structured design system document from project context or brand input
