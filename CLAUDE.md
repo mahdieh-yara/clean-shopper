@@ -18,6 +18,7 @@ Single-user app. No authentication in V1. Local state plus Supabase for data per
 - Utility functions: camelCase, lives in /src/lib/
 - API calls: all external API calls through /src/lib/api/, never inline in components
 - Styling: Tailwind only. No inline styles. No CSS modules.
+- Styling: Use Tailwind theme classes for all design token values. Never hardcode hex colors, pixel font sizes, or spacing values in components. If a needed token does not exist in the Tailwind config, add it there rather than hardcoding the value. This means bg-primary not #2D7B5E, text-h3 not text-lg, p-lg not p-4.
 - State: React useState and useContext only. No Redux, no Zustand.
 - File naming: kebab-case for all non-component files
 - Use semantic HTML elements
@@ -35,3 +36,12 @@ Single-user app. No authentication in V1. Local state plus Supabase for data per
 - Project context: See /docs/project-context.md -- full project intake and design decisions
 - Project context skill: See /.claude/skills/project-context/SKILL.md -- generates structured context documents from project input
 - Prompt optimizer skill: See /.claude/skills/prompt-optimizer/SKILL.md -- Use /prompt-optimizer to evaluate and refine instructions before sending them
+- Tailwind config: See tailwind.config.js for design tokens as Tailwind theme extensions. Always use theme classes, never hardcode values.
+
+## Design System
+
+This project has a defined design system. Reference these files when building any UI:
+- **Visual artifact:** `docs/design-system.html` — open in a browser to preview colors, typography, spacing, and shape
+- **Documentation & tokens:** `docs/design-system.md` — full design rationale, all token values, and CSS custom properties
+
+Always use the design tokens defined in the design system when writing styles. Do not hard-code colors, font sizes, spacing, or border-radius values — use the corresponding CSS custom property from the token system.

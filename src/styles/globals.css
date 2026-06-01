@@ -1,0 +1,122 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* === Color: Brand === */
+  --color-leaf-100: #E4EEE7;
+  --color-leaf-400: #7AA589;
+  --color-leaf-500: #4A7C59;
+  --color-leaf-600: #3A6448;
+
+  /* === Color: Neutral (cool, faint green undertone) === */
+  --color-neutral-50:  #FAFBF8;
+  --color-neutral-100: #F4F5F1;
+  --color-neutral-200: #E7E9E3;
+  --color-neutral-300: #D2D5CD;
+  --color-neutral-400: #A7ACA3;
+  --color-neutral-500: #7A7F76;
+  --color-neutral-600: #565A53;
+  --color-neutral-700: #3D413B;
+  --color-neutral-800: #272B26;
+  --color-neutral-900: #171A16;
+
+  /* === Color: Sand (warm neutrals) === */
+  --color-sand-50:  #FAF7F0;
+  --color-sand-100: #F2EDE0;
+  --color-sand-200: #E5DDC8;
+  --color-sand-300: #C7BCA0;
+
+  /* === Color: Semantic === */
+  --color-success: #3F8754;
+  --color-warning: #B8843D;
+  --color-error:   #A84A3F;
+  --color-info:    #4A7087;
+
+  /* === Surfaces === */
+  --surface-page:    #F8F9F6;
+  --surface-card:    #FFFFFF;
+  --surface-warm:    #F2EDE0;
+  --surface-inset:   #F4F5F1;
+  --surface-overlay: rgba(23, 26, 22, 0.4);
+
+  /* === Text === */
+  --text-primary:   var(--color-neutral-900);
+  --text-secondary: var(--color-neutral-600);
+  --text-tertiary:  var(--color-neutral-500);
+  --text-inverse:   var(--color-neutral-50);
+  --text-brand:     var(--color-leaf-600);
+
+  /* === Typography === */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace;
+
+  --type-display:  3.5rem;
+  --type-h1:       2.5rem;
+  --type-h2:       1.875rem;
+  --type-h3:       1.5rem;
+  --type-h4:       1.25rem;
+  --type-body:     1rem;
+  --type-small:    0.875rem;
+  --type-caption:  0.75rem;
+
+  /* === Spacing === */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* === Radius === */
+  --radius-sm:   8px;
+  --radius-md:   16px;
+  --radius-lg:   24px;
+  --radius-full: 9999px;
+
+  /* === Borders === */
+  --border-default: 1px solid var(--color-neutral-200);
+  --border-subtle:  1px solid var(--color-neutral-100);
+
+  /* === Shadows === */
+  --shadow-sm: 0 1px 2px rgba(23, 26, 22, 0.04);
+  --shadow-md: 0 4px 12px rgba(23, 26, 22, 0.06);
+  --shadow-lg: 0 12px 32px rgba(23, 26, 22, 0.08);
+
+  /* === Motion === */
+  --duration-fast:   150ms;
+  --duration-normal: 250ms;
+  --duration-slow:   400ms;
+  --ease-default: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-in:      cubic-bezier(0.4, 0, 1, 1);
+  --ease-out:     cubic-bezier(0, 0, 0.2, 1);
+
+  /* === Layout === */
+  --content-max: 1200px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --surface-page:    #15191A;
+    --surface-card:    #1F2220;
+    --surface-warm:    #2A2820;
+    --surface-inset:   #0F1211;
+    --surface-overlay: rgba(0, 0, 0, 0.6);
+
+    --text-primary:   #F4F5F1;
+    --text-secondary: #A7ACA3;
+    --text-tertiary:  #7A7F76;
+    --text-brand:     #9CBFA7;
+
+    --color-leaf-500: #7AA589;
+    --color-leaf-600: #9CBFA7;
+
+    --color-success: #5FA877;
+    --color-warning: #D6A35C;
+    --color-error:   #C76B5F;
+    --color-info:    #6F95AB;
+  }
+}
