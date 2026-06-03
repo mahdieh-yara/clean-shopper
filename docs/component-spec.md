@@ -21,11 +21,14 @@ All visual values reference tokens defined in `tailwind.config.js`. No hardcoded
 |---|---|---|---|
 | `name` | `string` | ✓ | Product name |
 | `safetyLevel` | `'clean' \| 'caution' \| 'avoid'` | ✓ | Drives badge color and grade letter |
-| `category` | `string` | ✓ | Short certification or category label (e.g. "EWG Verified") |
+| `category` | `string` | ✓ | Product category; always rendered as its own CategoryTag badge inside the card |
 | `description` | `string` | ✓ | One- to two-sentence product summary |
+| `attributes` | `string[]` | — | Certification/attribute labels (e.g. "EWG Verified", "Cruelty-Free"). Rendered as CategoryTags below the category badge, max 3 visible with a "+N more" tag for the remainder |
 | `imageUrl` | `string \| null` | — | Product image URL; renders a 1:1 image zone above the card content when provided |
 | `isBestMatch` | `boolean` | — | Renders the "✦ Best match" badge above the card when `true` |
 | `preferenceNote` | `string` | — | Short preference match note shown below the description |
+| `isSaved` | `boolean` | — | Saved state for the "Save to list" action; drives the toggle button's label and variant |
+| `onToggleSave` | `() => void` | — | When provided, renders a "Save to list" toggle button pinned to the bottom of the card |
 | `onClick` | `() => void` | — | Expands the card to full ingredient reasoning view |
 
 ### Visual Structure
@@ -49,7 +52,7 @@ All visual values reference tokens defined in `tailwind.config.js`. No hardcoded
 │  text-heading-s font-semibold           │
 │  text-charcoal                          │
 │                                         │
-│  [CategoryTag]                          │
+│  [CategoryTag variant="category"]       │ ← first row after the title
 │  mt-sp-3                                │
 │                                         │
 │  Description copy                       │
@@ -60,6 +63,13 @@ All visual values reference tokens defined in `tailwind.config.js`. No hardcoded
 │  mt-sp-3 text-label font-normal         │
 │  text-stone border-l-2 border-sage      │
 │  pl-sp-2                                │
+│                                         │
+│  [CategoryTag] [CategoryTag] [+N more]  │ ← certification/attribute tags,
+│  mt-sp-3  (max 3 + overflow)            │   placed after the paragraph
+│                                         │
+│  [ Save to list ]                       │ ← only when onToggleSave provided;
+│  mt-auto pt-sp-4  (pinned to bottom)    │   secondary Button, becomes primary
+│                                         │   "✓ Saved to list" when isSaved
 └─────────────────────────────────────────┘
 ```
 
@@ -73,10 +83,14 @@ All visual values reference tokens defined in `tailwind.config.js`. No hardcoded
 
 **Best match:** `isBestMatch={true}` renders `<BestMatchBadge>` flush above the card with `mb-sp-2`. The card itself does not change visually.
 
+**Save to list (optional):** When `onToggleSave` is provided, a `Button` renders pinned to the bottom of the card (`mt-auto`), so cards in a row stay bottom-aligned at equal height. Unsaved = `secondary` variant labeled "Save to list"; saved (`isSaved={true}`) = `primary` variant labeled "✓ Saved to list". The save click is `stopPropagation`'d so it never triggers an expandable card's `onClick`.
+
 ### Usage Rules
 
 - **Use** in search results, comparison view, and shopping cart.
 - **Use** for every AI-surfaced product — never display a product without a SafetyBadge.
+- **Use** the `category` variant CategoryTag for the category (first row after the title); render certification/attribute tags with the default variant after the paragraph.
+- **Provide** `onToggleSave` only where saving applies (e.g. browse/search); omit it in read-only contexts. Saved state is owned by the parent and passed via `isSaved` (controlled).
 - **Do not use** as a navigation element or for non-product content (e.g., tips, preferences). Use `EmptyState` when there are no results.
 - **Do not stack** more than three cards without a "show more" control. The design caps visible attribute tags at three with a "+N more" affordance.
 
@@ -195,7 +209,7 @@ No hover, loading, or error states — the badge is always read-only.
 | Prop | Type | Required | Description |
 |---|---|---|---|
 | `label` | `string` | ✓ | Short text (e.g. "EWG Verified", "Fragrance-free") |
-| `variant` | `'default' \| 'flagged'` | — | `default` = sage tint; `flagged` = terracotta tint with flag prefix |
+| `variant` | `'default' \| 'category' \| 'flagged'` | — | `default` = sage tint; `category` = warm sand tint with heavier weight; `flagged` = terracotta tint with flag prefix |
 | `onRemove` | `() => void` | — | When provided, renders an × button; used in preference management |
 
 ### Visual Structure
@@ -206,6 +220,13 @@ Default variant:
   bg-sage-15  text-moss
   rounded-tag  px-sp-2 py-sp-1
   text-label font-medium
+
+Category variant:
+  bg-sand-200  text-neutral-700  font-semibold
+  rounded-tag  px-sp-2 py-sp-1
+  text-label
+  (warm, neutral taxonomy label — distinct from the sage certification tags
+   and from the color-coded SafetyBadge)
 
 Flagged variant:
   bg-terracotta-12  text-terracotta
@@ -221,6 +242,8 @@ With onRemove:
 
 **Default:** Sage-tinted background, moss text.
 
+**Category:** Warm sand-tinted background, dark neutral text, semibold weight. Used for the product's category label so it reads as a distinct classifier rather than a certification.
+
 **Flagged:** Terracotta-tinted background, terracotta text, flag prefix. Never use this variant for decoration — only for ingredients the AI has identified as potentially problematic.
 
 **Removable (preference context):** Adds a close button. The tag itself has no hover state; only the × button changes to `text-charcoal` on hover.
@@ -230,6 +253,7 @@ No loading or error states.
 ### Usage Rules
 
 - **Use** in ProductCard for certifications and attribute tags (max 3 visible, rest behind "+N more").
+- **Use** `category` variant for the product's category label in ProductCard — one per card.
 - **Use** in the preference management screen to show saved preferences — `onRemove` enables deletion.
 - **Use** `flagged` variant only for AI-identified ingredient concerns on the expanded product card.
 - **Do not** use more than 3 default tags in a single ProductCard without a "+N more" control.
