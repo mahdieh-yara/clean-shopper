@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Clean Shopper — Design System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================================
+       DESIGN TOKENS
+       ============================================================ */
+    :root {
+      /* Brand */
+      --color-leaf-100: #E4EEE7;
+      --color-leaf-400: #7AA589;
+      --color-leaf-500: #4A7C59;
+      --color-leaf-600: #3A6448;
+
+      /* Neutral (cool, faint green undertone) */
+      --color-neutral-50:  #FAFBF8;
+      --color-neutral-100: #F4F5F1;
+      --color-neutral-200: #E7E9E3;
+      --color-neutral-300: #D2D5CD;
+      --color-neutral-400: #A7ACA3;
+      --color-neutral-500: #7A7F76;
+      --color-neutral-600: #565A53;
+      --color-neutral-700: #3D413B;
+      --color-neutral-800: #272B26;
+      --color-neutral-900: #171A16;
+
+      /* Sand (warm neutrals) */
+      --color-sand-50:  #FAF7F0;
+      --color-sand-100: #F2EDE0;
+      --color-sand-200: #E5DDC8;
+      --color-sand-300: #C7BCA0;
+
+      /* Semantic */
+      --color-success: #3F8754;
+      --color-warning: #B8843D;
+      --color-error:   #A84A3F;
+      --color-info:    #4A7087;
+
+      /* Surfaces */
+      --surface-page:    #F8F9F6;
+      --surface-card:    #FFFFFF;
+      --surface-warm:    #F2EDE0;
+      --surface-inset:   #F4F5F1;
+      --surface-overlay: rgba(23, 26, 22, 0.4);
+
+      /* Text */
+      --text-primary:   var(--color-neutral-900);
+      --text-secondary: var(--color-neutral-600);
+      --text-tertiary:  var(--color-neutral-500);
+      --text-inverse:   var(--color-neutral-50);
+      --text-brand:     var(--color-leaf-600);
+
+      /* Typography */
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace;
+
+      --type-display:  3.5rem;
+      --type-h1:       2.5rem;
+      --type-h2:       1.875rem;
+      --type-h3:       1.5rem;
+      --type-h4:       1.25rem;
+      --type-body:     1rem;
+      --type-small:    0.875rem;
+      --type-caption:  0.75rem;
+
+      /* Spacing */
+      --space-1:  4px;
+      --space-2:  8px;
+      --space-3:  12px;
+      --space-4:  16px;
+      --space-6:  24px;
+      --space-8:  32px;
+      --space-10: 40px;
+      --space-12: 48px;
+      --space-16: 64px;
+      --space-20: 80px;
+      --space-24: 96px;
+
+      /* Radius */
+      --radius-sm:   8px;
+      --radius-md:   16px;
+      --radius-lg:   24px;
+      --radius-full: 9999px;
+
+      /* Borders */
+      --border-default: 1px solid var(--color-neutral-200);
+      --border-subtle:  1px solid var(--color-neutral-100);
+
+      /* Shadows */
+      --shadow-sm: 0 1px 2px rgba(23, 26, 22, 0.04);
+      --shadow-md: 0 4px 12px rgba(23, 26, 22, 0.06);
+      --shadow-lg: 0 12px 32px rgba(23, 26, 22, 0.08);
+
+      /* Layout */
+      --content-max: 960px;
+      --content-reading: 680px;
+    }
+
+    /* ============================================================
+       BASE
+       ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-sans);
+      font-size: var(--type-body);
+      line-height: 1.55;
+      color: var(--text-primary);
+      background: var(--surface-page);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    h1, h2, h3, h4, p { margin: 0; }
+    code { font-family: var(--font-mono); font-size: 0.9em; }
+
+    /* ============================================================
+       LAYOUT
+       ============================================================ */
+    .page {
+      max-width: var(--content-max);
+      margin: 0 auto;
+      padding: var(--space-20) var(--space-6) var(--space-24);
+    }
+    .section { margin-top: var(--space-20); }
+    .section + .section { margin-top: var(--space-24); }
+    .section-eyebrow {
+      font-size: var(--type-caption);
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      margin-bottom: var(--space-3);
+    }
+    .section-title {
+      font-size: var(--type-h2);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      line-height: 1.15;
+      color: var(--text-primary);
+      margin-bottom: var(--space-4);
+    }
+    .section-lead {
+      font-size: var(--type-body);
+      line-height: 1.6;
+      color: var(--text-secondary);
+      max-width: var(--content-reading);
+      margin-bottom: var(--space-10);
+    }
+
+    /* ============================================================
+       HERO
+       ============================================================ */
+    .hero { padding-bottom: var(--space-12); border-bottom: var(--border-subtle); }
+    .hero-meta {
+      font-family: var(--font-mono);
+      font-size: var(--type-caption);
+      letter-spacing: 0.04em;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      margin-bottom: var(--space-6);
+    }
+    .hero-title {
+      font-size: var(--type-display);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      color: var(--text-primary);
+      margin-bottom: var(--space-6);
+    }
+    .hero-statement {
+      font-size: 1.125rem;
+      line-height: 1.6;
+      color: var(--text-secondary);
+      max-width: var(--content-reading);
+    }
+    .hero-statement + .hero-statement { margin-top: var(--space-4); }
+
+    /* ============================================================
+       PRINCIPLES
+       ============================================================ */
+    .principles {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: var(--space-4);
+    }
+    .principle {
+      background: var(--surface-card);
+      border: var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: var(--space-8);
+    }
+    .principle-name {
+      font-size: var(--type-h4);
+      font-weight: 600;
+      letter-spacing: -0.005em;
+      color: var(--text-primary);
+      margin-bottom: var(--space-3);
+    }
+    .principle-desc {
+      font-size: 0.9375rem;
+      line-height: 1.55;
+      color: var(--text-secondary);
+    }
+
+    /* ============================================================
+       COLOR
+       ============================================================ */
+    .swatches-primary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: var(--space-4);
+    }
+    .swatch {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: var(--border-subtle);
+      margin: 0;
+    }
+    .swatch-color {
+      height: 120px;
+      display: flex;
+      align-items: flex-end;
+      padding: var(--space-4);
+    }
+    .swatch-meta {
+      background: var(--surface-card);
+      padding: var(--space-4);
+      border-top: var(--border-subtle);
+    }
+    .swatch-name {
+      font-size: var(--type-small);
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 2px;
+    }
+    .swatch-hex {
+      font-family: var(--font-mono);
+      font-size: var(--type-caption);
+      color: var(--text-tertiary);
+    }
+    .swatch-inline-label {
+      font-family: var(--font-mono);
+      font-size: var(--type-caption);
+      letter-spacing: 0.04em;
+    }
+    .swatch-inline-label.dark { color: rgba(255,255,255,0.85); }
+    .swatch-inline-label.light { color: rgba(23, 26, 22, 0.6); }
+
+    .semantic-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: var(--space-4);
+    }
+    .semantic-swatch {
+      border-radius: var(--radius-md);
+      padding: var(--space-5, 20px);
+      color: #fff;
+      min-height: 100px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .semantic-role { font-size: var(--type-small); font-weight: 600; letter-spacing: 0.02em; }
+    .semantic-hex { font-family: var(--font-mono); font-size: var(--type-caption); opacity: 0.85; }
+
+    .neutral-strip {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: 0;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: var(--border-subtle);
+    }
+    .neutral-step {
+      height: 96px;
+      padding: var(--space-3);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.03em;
+    }
+    .neutral-step.light { color: var(--text-tertiary); }
+    .neutral-step.dark  { color: rgba(255,255,255,0.75); }
+    .neutral-step .step-name { display: block; }
+    .neutral-step .step-hex  { display: block; opacity: 0.75; }
+
+    .sand-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: var(--border-subtle);
+    }
+
+    .surface-stack {
+      background: var(--surface-page);
+      border: var(--border-default);
+      border-radius: var(--radius-lg);
+      padding: var(--space-10);
+    }
+    .surface-stack .surface-card-demo {
+      background: var(--surface-card);
+      border: var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: var(--space-8);
+    }
+    .surface-stack .surface-warm-demo {
+      background: var(--surface-warm);
+      border-radius: var(--radius-md);
+      padding: var(--space-6);
+      margin-top: var(--space-4);
+    }
+    .surface-stack .surface-inset-demo {
+      background: var(--surface-inset);
+      border-radius: var(--radius-sm);
+      padding: var(--space-4);
+      margin-top: var(--space-4);
+      font-family: var(--font-mono);
+      font-size: var(--type-small);
+      color: var(--text-secondary);
+    }
+    .surface-label {
+      font-family: var(--font-mono);
+      font-size: var(--type-caption);
+      letter-spacing: 0.04em;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      margin-bottom: var(--space-2);
+    }
+    .surface-body { font-size: 0.9375rem; color: var(--text-secondary); }
+
+    /* ============================================================
+       TYPOGRAPHY
+       ============================================================ */
+    .type-specimen {
+      padding: var(--space-6) 0;
+      border-bottom: var(--border-subtle);
+    }
+    .type-specimen:last-child { border-bottom: none; }
+    .specimen-sample { color: var(--text-primary); margin-bottom: var(--space-3); }
+    .specimen-meta {
+      font-family: var(--font-mono);
+      font-size: var(--type-caption);
+      color: var(--text-tertiary);
+      letter-spacing: 0.03em;
+    }
+    .sample-display { font-size: var(--type-display); font-weight: 600; letter-spacing: -0.02em; line-height: 1.05; }
+    .sample-h1 { font-size: var(--type-h1); font-weight: 600; letter-spacing: -0.015em; line-height: 1.1; }
+    .sample-h2 { font-size: var(--type-h2); font-weight: 600; letter-spacing: -0.01em; line-height: 1.15; }
+    .sample-h3 { font-size: var(--type-h3); font-weight: 500; letter-spacing: -0.005em; line-height: 1.2; }
+    .sample-h4 { font-size: var(--type-h4); font-weight: 500; line-height: 1.3; }
+    .sample-body { font-size: var(--type-body); font-weight: 400; line-height: 1.55; max-width: var(--content-reading); }
+    .sample-small { font-size: var(--type-small); font-weight: 400; line-height: 1.5; color: var(--text-secondary); }
+    .sample-caption {
+      font-size: var(--type-caption); font-weight: 500;
+      letter-spacing: 0.04em; text-transform: uppercase;
+      color: var(--text-tertiary);
+    }
+    .sample-mono { font-family: var(--font-mono); font-size: var(--type-small); color: var(--text-secondary); }
+
+    /* ============================================================
+       SPACING
+       ============================================================ */
+    .spacing-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-6);
+      padding: var(--space-3) 0;
+    }
+    .spacing-bar {
+      background: var(--color-leaf-500);
+      opacity: 0.22;
+      height: 24px;
+      border-radius: var(--radius-sm);
+    }
+    .spacing-label {
+      font-family: var(--font-mono);
+      font-size: var(--type-caption);
+      letter-spacing: 0.04em;
+      color: var(--text-tertiary);
+      white-space: nowrap;
+      min-width: 140px;
+    }
+
+    /* ============================================================
+       SHAPE
+       ============================================================ */
+    .shape-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: var(--space-6);
+    }
+    .shape-card {
+      background: var(--surface-card);
+      border: var(--border-subtle);
+      height: 110px;
+      display: flex;
+      align-items: flex-end;
+      padding: var(--space-4);
+    }
+    .shape-meta {
+      font-family: var(--font-mono);
+      font-size: var(--type-caption);
+      letter-spacing: 0.04em;
+      color: var(--text-tertiary);
+    }
+    .shadow-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: var(--space-8);
+      padding: var(--space-8) 0;
+    }
+    .shadow-card {
+      background: var(--surface-card);
+      border-radius: var(--radius-md);
+      padding: var(--space-6);
+      min-height: 120px;
+      display: flex;
+      align-items: flex-end;
+    }
+    .shadow-sm-demo { box-shadow: var(--shadow-sm); }
+    .shadow-md-demo { box-shadow: var(--shadow-md); }
+    .shadow-lg-demo { box-shadow: var(--shadow-lg); }
+
+    /* ============================================================
+       MOTION
+       ============================================================ */
+    .motion-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: var(--space-4);
+    }
+    .motion-card {
+      background: var(--surface-card);
+      border: var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: var(--space-6);
+    }
+    .motion-name {
+      font-size: var(--type-small);
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: var(--space-2);
+    }
+    .motion-value {
+      font-family: var(--font-mono);
+      font-size: var(--type-caption);
+      color: var(--text-tertiary);
+      margin-bottom: var(--space-3);
+    }
+    .motion-desc { font-size: 0.9375rem; color: var(--text-secondary); line-height: 1.5; }
+
+    /* ============================================================
+       DARK MODE PREVIEW
+       ============================================================ */
+    .darkmode-preview {
+      background: #15191A;
+      border-radius: var(--radius-lg);
+      padding: var(--space-10);
+      color: #F4F5F1;
+    }
+    .darkmode-preview .dm-title {
+      font-size: var(--type-h2);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: var(--space-3);
+      color: #F4F5F1;
+    }
+    .darkmode-preview .dm-body {
+      color: #A7ACA3;
+      line-height: 1.6;
+      margin-bottom: var(--space-8);
+      max-width: var(--content-reading);
+    }
+    .dm-swatch-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: var(--space-3);
+    }
+    .dm-swatch {
+      border-radius: var(--radius-md);
+      padding: var(--space-4);
+      min-height: 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .dm-swatch .dm-name {
+      font-size: var(--type-caption); font-weight: 500;
+      letter-spacing: 0.04em; text-transform: uppercase;
+    }
+    .dm-swatch .dm-hex { font-family: var(--font-mono); font-size: var(--type-caption); opacity: 0.7; }
+    .dm-bg-page { background: #15191A; border: 1px solid #272B26; color: #F4F5F1; }
+    .dm-bg-card { background: #1F2220; color: #F4F5F1; }
+    .dm-bg-warm { background: #2A2820; color: #F4F5F1; }
+    .dm-bg-leaf { background: #7AA589; color: #15191A; }
+
+    .footer {
+      margin-top: var(--space-24);
+      padding-top: var(--space-8);
+      border-top: var(--border-subtle);
+      font-family: var(--font-mono);
+      font-size: var(--type-caption);
+      letter-spacing: 0.04em;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 640px) {
+      .page { padding: var(--space-12) var(--space-4) var(--space-16); }
+      :root {
+        --type-display: 2.5rem;
+        --type-h1: 2rem;
+        --type-h2: 1.5rem;
+      }
+      .neutral-strip { grid-template-columns: repeat(5, 1fr); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+
+    <header class="hero section" style="margin-top: 0;">
+      <div class="hero-meta">Design System v1.0 · 2026-05-19</div>
+      <h1 class="hero-title">Clean Shopper</h1>
+      <p class="hero-statement">
+        Clean Shopper feels like consulting a calm, knowledgeable friend who has already done the research for you. The interface is minimal and quiet — soft off-white and white surfaces layered for depth, generous breathing room, rounded approachable shapes, and editorial typography that feels considered rather than loud.
+      </p>
+      <p class="hero-statement">
+        A single muted leaf green carries the brand and signals trust without shouting. The rest of the palette stays near-monochrome and cool, warmed by sand-toned neutrals. Organic without being precious, approachable without being playful, and explicitly not luxurious, glossy, or beauty-fashion.
+      </p>
+    </header>
+
+    <section class="section">
+      <div class="section-eyebrow">Principles</div>
+      <h2 class="section-title">Five rules of thumb</h2>
+      <p class="section-lead">Specific to Clean Shopper. Every later decision traces back to these.</p>
+      <div class="principles">
+        <article class="principle">
+          <h3 class="principle-name">Quiet by default</h3>
+          <p class="principle-desc">No urgency, no conversion pressure, no visual noise. The interface stays still so the information can speak.</p>
+        </article>
+        <article class="principle">
+          <h3 class="principle-name">Reassurance through restraint</h3>
+          <p class="principle-desc">Trust is communicated by what's absent — no exclamation marks, no shouting badges, no aggressive contrast.</p>
+        </article>
+        <article class="principle">
+          <h3 class="principle-name">Depth through surface</h3>
+          <p class="principle-desc">Hierarchy comes from stacking off-white, white, and warm sand surfaces. Shadows are reserved for floating UI.</p>
+        </article>
+        <article class="principle">
+          <h3 class="principle-name">Organic warmth in a cool palette</h3>
+          <p class="principle-desc">Cool off-whites for considered tone. Warm sand neutrals for humanity. Neither clinical nor boutique.</p>
+        </article>
+        <article class="principle">
+          <h3 class="principle-name">Rounded, not playful</h3>
+          <p class="principle-desc">Pill CTAs and generous card radii signal approachability — type, spacing, and motion stay editorial.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-eyebrow">Color</div>
+      <h2 class="section-title">Palette</h2>
+      <p class="section-lead">A single muted leaf green surrounded by cool off-whites and warm sand neutrals. Green emerges only at moments of trust; sand emerges only at moments of layering.</p>
+
+      <h3 class="principle-name" style="margin-bottom: var(--space-4);">Primary</h3>
+      <div class="swatches-primary">
+        <figure class="swatch">
+          <div class="swatch-color" style="background: var(--color-leaf-500);"><span class="swatch-inline-label dark">leaf-500</span></div>
+          <figcaption class="swatch-meta"><div class="swatch-name">Leaf Green</div><div class="swatch-hex">#4A7C59</div></figcaption>
+        </figure>
+        <figure class="swatch">
+          <div class="swatch-color" style="background: var(--color-leaf-600);"><span class="swatch-inline-label dark">leaf-600</span></div>
+          <figcaption class="swatch-meta"><div class="swatch-name">Forest</div><div class="swatch-hex">#3A6448</div></figcaption>
+        </figure>
+        <figure class="swatch">
+          <div class="swatch-color" style="background: var(--color-leaf-400);"><span class="swatch-inline-label dark">leaf-400</span></div>
+          <figcaption class="swatch-meta"><div class="swatch-name">Sage</div><div class="swatch-hex">#7AA589</div></figcaption>
+        </figure>
+        <figure class="swatch">
+          <div class="swatch-color" style="background: var(--color-leaf-100);"><span class="swatch-inline-label light">leaf-100</span></div>
+          <figcaption class="swatch-meta"><div class="swatch-name">Leaf Mist</div><div class="swatch-hex">#E4EEE7</div></figcaption>
+        </figure>
+      </div>
+
+      <h3 class="principle-name" style="margin: var(--space-12) 0 var(--space-4);">Semantic</h3>
+      <div class="semantic-row">
+        <div class="semantic-swatch" style="background: var(--color-success);"><div class="semantic-role">Success</div><div class="semantic-hex">#3F8754</div></div>
+        <div class="semantic-swatch" style="background: var(--color-warning);"><div class="semantic-role">Warning</div><div class="semantic-hex">#B8843D</div></div>
+        <div class="semantic-swatch" style="background: var(--color-error);"><div class="semantic-role">Error</div><div class="semantic-hex">#A84A3F</div></div>
+        <div class="semantic-swatch" style="background: var(--color-info);"><div class="semantic-role">Info</div><div class="semantic-hex">#4A7087</div></div>
+      </div>
+
+      <h3 class="principle-name" style="margin: var(--space-12) 0 var(--space-4);">Neutral Scale</h3>
+      <div class="neutral-strip">
+        <div class="neutral-step light" style="background: #FAFBF8;"><span class="step-name">50</span><span class="step-hex">#FAFBF8</span></div>
+        <div class="neutral-step light" style="background: #F4F5F1;"><span class="step-name">100</span><span class="step-hex">#F4F5F1</span></div>
+        <div class="neutral-step light" style="background: #E7E9E3;"><span class="step-name">200</span><span class="step-hex">#E7E9E3</span></div>
+        <div class="neutral-step light" style="background: #D2D5CD;"><span class="step-name">300</span><span class="step-hex">#D2D5CD</span></div>
+        <div class="neutral-step light" style="background: #A7ACA3;"><span class="step-name">400</span><span class="step-hex">#A7ACA3</span></div>
+        <div class="neutral-step dark" style="background: #7A7F76;"><span class="step-name">500</span><span class="step-hex">#7A7F76</span></div>
+        <div class="neutral-step dark" style="background: #565A53;"><span class="step-name">600</span><span class="step-hex">#565A53</span></div>
+        <div class="neutral-step dark" style="background: #3D413B;"><span class="step-name">700</span><span class="step-hex">#3D413B</span></div>
+        <div class="neutral-step dark" style="background: #272B26;"><span class="step-name">800</span><span class="step-hex">#272B26</span></div>
+        <div class="neutral-step dark" style="background: #171A16;"><span class="step-name">900</span><span class="step-hex">#171A16</span></div>
+      </div>
+
+      <h3 class="principle-name" style="margin: var(--space-12) 0 var(--space-4);">Sand Scale (Warm Neutrals)</h3>
+      <div class="sand-strip">
+        <div class="neutral-step light" style="background: #FAF7F0;"><span class="step-name">sand-50</span><span class="step-hex">#FAF7F0</span></div>
+        <div class="neutral-step light" style="background: #F2EDE0;"><span class="step-name">sand-100</span><span class="step-hex">#F2EDE0</span></div>
+        <div class="neutral-step light" style="background: #E5DDC8;"><span class="step-name">sand-200</span><span class="step-hex">#E5DDC8</span></div>
+        <div class="neutral-step light" style="background: #C7BCA0;"><span class="step-name">sand-300</span><span class="step-hex">#C7BCA0</span></div>
+      </div>
+
+      <h3 class="principle-name" style="margin: var(--space-12) 0 var(--space-4);">Surface Hierarchy</h3>
+      <div class="surface-stack">
+        <div class="surface-label">surface-page · #F8F9F6</div>
+        <div class="surface-body" style="margin-bottom: var(--space-6);">The default page background. Cool, near-white.</div>
+        <div class="surface-card-demo">
+          <div class="surface-label">surface-card · #FFFFFF</div>
+          <div class="surface-body">Primary card surfaces — product cards, comparison panels, dialog content.</div>
+          <div class="surface-warm-demo">
+            <div class="surface-label">surface-warm · #F2EDE0</div>
+            <div class="surface-body">Featured panels and warm secondary surfaces.</div>
+          </div>
+          <div class="surface-inset-demo">surface-inset · #F4F5F1 — for input fields and code blocks.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-eyebrow">Typography</div>
+      <h2 class="section-title">Type specimens</h2>
+      <p class="section-lead">Inter across the system. JetBrains Mono for technical data. Tight tracking on display and headings; comfortable line-height in body for sustained ingredient reading.</p>
+
+      <div class="type-specimen">
+        <div class="specimen-sample sample-display">Clean Shopper</div>
+        <div class="specimen-meta">display · 3.5rem / 56px · 600 · line-height 1.05 · tracking -0.02em</div>
+      </div>
+      <div class="type-specimen">
+        <div class="specimen-sample sample-h1">Discover products you can trust</div>
+        <div class="specimen-meta">h1 · 2.5rem / 40px · 600 · line-height 1.1 · tracking -0.015em</div>
+      </div>
+      <div class="type-specimen">
+        <div class="specimen-sample sample-h2">Your saved library</div>
+        <div class="specimen-meta">h2 · 1.875rem / 30px · 600 · line-height 1.15 · tracking -0.01em</div>
+      </div>
+      <div class="type-specimen">
+        <div class="specimen-sample sample-h3">Ingredient analysis</div>
+        <div class="specimen-meta">h3 · 1.5rem / 24px · 500 · line-height 1.2</div>
+      </div>
+      <div class="type-specimen">
+        <div class="specimen-sample sample-h4">Trusted brands</div>
+        <div class="specimen-meta">h4 · 1.25rem / 20px · 500 · line-height 1.3</div>
+      </div>
+      <div class="type-specimen">
+        <div class="specimen-sample sample-body">Clean Shopper evaluated this product against your saved preferences — no parabens, no synthetic fragrance, EWG Verified certification — and cross-referenced its full ingredient list against the EWG Skin Deep database. Of 14 ingredients, 13 scored in the low-hazard range and 1 required closer review.</div>
+        <div class="specimen-meta">body · 1rem / 16px · 400 · line-height 1.55</div>
+      </div>
+      <div class="type-specimen">
+        <div class="specimen-sample sample-small">Metadata, captions, and secondary labels live here — saved · 3 days ago.</div>
+        <div class="specimen-meta">small · 0.875rem / 14px · 400 · line-height 1.5</div>
+      </div>
+      <div class="type-specimen">
+        <div class="specimen-sample sample-caption">Eyebrow label · category · uppercase</div>
+        <div class="specimen-meta">caption · 0.75rem / 12px · 500 · tracking 0.04em uppercase</div>
+      </div>
+      <div class="type-specimen">
+        <div class="specimen-sample sample-mono">CI-987234 · EWG score 2 · CAS 67-63-0</div>
+        <div class="specimen-meta">JetBrains Mono · for ingredient codes, scores, technical data</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-eyebrow">Spacing</div>
+      <h2 class="section-title">Rhythm and scale</h2>
+      <p class="section-lead">4px base unit. The system emphasizes mid-to-large steps for unhurried section rhythm.</p>
+
+      <div class="spacing-row"><div class="spacing-label">space-1 · 4px</div><div class="spacing-bar" style="width: 4px;"></div></div>
+      <div class="spacing-row"><div class="spacing-label">space-2 · 8px</div><div class="spacing-bar" style="width: 8px;"></div></div>
+      <div class="spacing-row"><div class="spacing-label">space-3 · 12px</div><div class="spacing-bar" style="width: 12px;"></div></div>
+      <div class="spacing-row"><div class="spacing-label">space-4 · 16px</div><div class="spacing-bar" style="width: 16px;"></div></div>
+      <div class="spacing-row"><div class="spacing-label">space-6 · 24px</div><div class="spacing-bar" style="width: 24px;"></div></div>
+      <div class="spacing-row"><div class="spacing-label">space-8 · 32px</div><div class="spacing-bar" style="width: 32px;"></div></div>
+      <div class="spacing-row"><div class="spacing-label">space-10 · 40px</div><div class="spacing-bar" style="width: 40px;"></div></div>
+      <div class="spacing-row"><div class="spacing-label">space-12 · 48px</div><div class="spacing-bar" style="width: 48px;"></div></div>
+      <div class="spacing-row"><div class="spacing-label">space-16 · 64px</div><div class="spacing-bar" style="width: 64px;"></div></div>
+    </section>
+
+    <section class="section">
+      <div class="section-eyebrow">Shape</div>
+      <h2 class="section-title">Radius and elevation</h2>
+      <p class="section-lead">Soft and rounded throughout. Sharp 90° corners do not appear anywhere except dividing lines.</p>
+
+      <h3 class="principle-name" style="margin-bottom: var(--space-4);">Border Radius</h3>
+      <div class="shape-row">
+        <div class="shape-card" style="border-radius: var(--radius-sm);"><span class="shape-meta">radius-sm · 8px</span></div>
+        <div class="shape-card" style="border-radius: var(--radius-md);"><span class="shape-meta">radius-md · 16px</span></div>
+        <div class="shape-card" style="border-radius: var(--radius-lg);"><span class="shape-meta">radius-lg · 24px</span></div>
+        <div class="shape-card" style="border-radius: var(--radius-full); border: none; background: var(--color-leaf-500);"><span class="shape-meta" style="color: rgba(255,255,255,0.85);">radius-full · pill</span></div>
+      </div>
+
+      <h3 class="principle-name" style="margin: var(--space-12) 0 var(--space-4);">Shadows</h3>
+      <p class="sample-small" style="max-width: var(--content-reading); margin-bottom: var(--space-4);">Used only for floating UI — dropdowns, popovers, modals. Depth elsewhere comes from surface layering.</p>
+      <div class="shadow-row">
+        <div class="shadow-card shadow-sm-demo"><span class="shape-meta">shadow-sm</span></div>
+        <div class="shadow-card shadow-md-demo"><span class="shape-meta">shadow-md</span></div>
+        <div class="shadow-card shadow-lg-demo"><span class="shape-meta">shadow-lg</span></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-eyebrow">Motion</div>
+      <h2 class="section-title">Smooth, restrained</h2>
+      <p class="section-lead">Motion is present enough to feel crafted, restrained enough to never call attention to itself. Nothing bounces, spins, or pulses. <code>prefers-reduced-motion</code> is honored throughout.</p>
+
+      <div class="motion-grid">
+        <div class="motion-card">
+          <div class="motion-name">duration-fast</div>
+          <div class="motion-value">150ms</div>
+          <p class="motion-desc">Hover, focus, button-press micro-feedback.</p>
+        </div>
+        <div class="motion-card">
+          <div class="motion-name">duration-normal</div>
+          <div class="motion-value">250ms</div>
+          <p class="motion-desc">Default — color transitions, accordion expand, tab switch.</p>
+        </div>
+        <div class="motion-card">
+          <div class="motion-name">duration-slow</div>
+          <div class="motion-value">400ms</div>
+          <p class="motion-desc">Modal and sheet enter, page transitions, large reveals.</p>
+        </div>
+        <div class="motion-card">
+          <div class="motion-name">ease-default</div>
+          <div class="motion-value">cubic-bezier(0.2, 0.8, 0.2, 1)</div>
+          <p class="motion-desc">Gentle out, soft settle — used for most transitions.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-eyebrow">Dark Mode</div>
+      <h2 class="section-title">Same system, inverted</h2>
+      <p class="section-lead">Light mode is home; dark mode is a supported alternative. The dark palette inverts surface hierarchy while preserving the warm-cool tension and muted brand green.</p>
+
+      <div class="darkmode-preview">
+        <div class="dm-title">Discover products you can trust</div>
+        <p class="dm-body">Surface stacking inverts: warm-deep base → less-dark card → deepest warm. Brand green brightens to maintain contrast. Sand tones shift from light cream to deep earth.</p>
+        <div class="dm-swatch-row">
+          <div class="dm-swatch dm-bg-page"><span class="dm-name">page</span><span class="dm-hex">#15191A</span></div>
+          <div class="dm-swatch dm-bg-card"><span class="dm-name">card</span><span class="dm-hex">#1F2220</span></div>
+          <div class="dm-swatch dm-bg-warm"><span class="dm-name">warm</span><span class="dm-hex">#2A2820</span></div>
+          <div class="dm-swatch dm-bg-leaf"><span class="dm-name">leaf</span><span class="dm-hex">#7AA589</span></div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">Generated by /design-system-generator · 2026-05-19</footer>
+
+  </main>
+</body>
+</html>
