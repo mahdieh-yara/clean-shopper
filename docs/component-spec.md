@@ -287,12 +287,17 @@ No loading or error states.
 │                                         │
 │  Nav items (right-aligned):             │
 │    text-label font-medium               │
-│    Active:  text-sage                   │
+│    Active:   text-sage (no pill)        │
 │    Inactive: text-stone                 │
+│    Inactive hover: text-sage +          │
+│    bg-neutral-100 pill (rounded-full,   │
+│    px-sp-2 py-sp-1)                      │
 │    gap-sp-6 between items               │
 │                                         │
-│  Cart item (if cartCount > 0):          │
-│    Count badge: bg-sage text-warm-white │
+│  Cart item:                             │
+│    Leading cart icon (currentColor)     │
+│    Count badge (if cartCount > 0):      │
+│    bg-sage text-warm-white              │
 │    text-micro font-semibold rounded-full│
 │    w-sp-4 h-sp-4 (inline, top-right)   │
 └─────────────────────────────────────────┘
@@ -300,11 +305,15 @@ No loading or error states.
 
 ### States
 
-**Default:** Warm-white background, stone nav items, active item in sage.
+The bar itself is static (warm-white background, bottom border). Each **nav item** has three states:
 
-**Active item:** `text-sage font-semibold`. No underline, no pill — color alone signals selection.
+**1. Default (inactive):** `text-stone font-medium`, no background.
 
-**Cart with items:** Cart nav label shows a sage count badge. Badge disappears when `cartCount` is 0.
+**2. Hover (inactive items):** Text changes to `text-sage` and a light neutral pill background appears (`hover:bg-neutral-100`, `rounded-full px-sp-2 py-sp-1`). Transition uses `duration-fast`.
+
+**3. Active:** `text-sage font-semibold` with **no background pill** — sage text plus heavier weight signals selection. Active items do not show the hover pill.
+
+**Cart item:** Always shows a leading cart icon (`currentColor`, so it tracks the item's text color). When `cartCount > 0` it also shows a sage count badge to the right of the label; the badge disappears when `cartCount` is 0.
 
 No loading or error states for the nav itself.
 
